@@ -4,7 +4,7 @@ import tweepy
 from mongoengine import *
 from models import Tweet
 
-connect('test1')#, host='mongodb://kahana.mongohq.com:10012/app27538292')
+connect('test1',host='mongodb://kahana.mongohq.com:10012/app27538292')
 
 @app.route('/')
 @app.route('/index')
