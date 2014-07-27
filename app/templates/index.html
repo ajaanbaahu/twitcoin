@@ -17,7 +17,6 @@
         $.getJSON('/_classify_tweet', {
          	text :  $('input[name="text' + tweet_num + '"]').val(),
           classification:  $(elem).attr('name')
-		  date: $(elem).attr('date')
         }, function(data) {
           console.log(data)
         });
