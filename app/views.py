@@ -3,7 +3,7 @@ from app import app
 import tweepy
 from mongoengine import *
 from models import Tweet
-
+import datetime
 connect('test1',host='mongodb://heroku:OuchYNmsY66BYCcRMOLEbqZhYf5iWknekhSBZNENGRKd6BoZPSdNbrTrlHF5pUIyYCV1dD3kseANJQMKO4MMNg@kahana.mongohq.com:10012/app27538292')
 
 @app.route('/')
@@ -30,6 +30,7 @@ def index():
 @app.route('/_classify_tweet')
 def classify_tweet():
 	text = request.args.get('text')
+	date=str(datetime.datetime.now())
  	classification = request.args.get('classification')
- 	classified_tweet = Tweet(text=text, classification=classification).save()
+ 	classified_tweet = Tweet(text=text, classification=classification, date=date).save()
  	return jsonify(result=1+1)
