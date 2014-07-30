@@ -9,9 +9,12 @@
     function classifyTweet(elem){
     console.log(elem.getAttribute('onclick'));
     var tweet_num = $(elem).attr("id").substring(3, $(elem).attr("id").length);
-    $('#neg' + tweet_num).css('background-color', '#999'), $('#pos' + tweet_num).css('background-color', '#999');
+    $('#neg' + tweet_num).css('background-color', '#999'), $('#pos' + tweet_num).css('background-color', '#999'),$('#neu' + tweet_num).css('background-color', '#999'),
+	$('#bot' + tweet_num).css('background-color', '#999');
     $('#neg' + tweet_num).attr('onclick', 'alert("You already classified this tweet!");');
     $('#pos' + tweet_num).attr('onclick', 'alert("You already classified this tweet!");');
+	$('#neu' + tweet_num).attr('onclick', 'alert("You already classified this tweet!");');
+	$('#bot' + tweet_num).attr('onclick', 'alert("You already classified this tweet!");');
 	
     console.log(tweet_num)
         $.getJSON('/_classify_tweet', {
@@ -34,6 +37,8 @@
 <button style="background-color:green" id="pos{{i}}" name="positive" class="button" onclick="classifyTweet(this)">Positive</button>
 </div>
 <div><button style="background-color:red" id="neg{{i}}" name="negative" class="button" onclick="classifyTweet(this)">Negative</button></div>
+<div><button style="background-color:blue" id="neu{{i}}" name="neutral" class="button" onclick="classifyTweet(this)">Neutral</button></div>
+<div><button style="background-color:cyan" id="bot{{i}}" name="neutral" class="button" onclick="classifyTweet(this)">Bot</button></div>
 
 {% endfor %}
 </body>
