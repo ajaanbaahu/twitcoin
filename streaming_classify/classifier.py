@@ -1,8 +1,7 @@
-import pymongo
-from pymongo import Connection
-import numpy as np
+from mongoengine import *
 import re, cPickle
-
+import datetime
+from models import Tweet
 #from sklearn.naive_bayes import MultinomialNB
 #from sklearn.feature_extraction.text import TfidfVectorizer
 #from sklearn.feature_extraction.text import CountVectorizer
@@ -11,26 +10,18 @@ from text.classifiers import NaiveBayesClassifier
 #from operator import itemgetter
 #from sklearn.metrics import classification_report
 import codecs, csv
-import nltk, string, os
-from nltk.corpus import stopwords
+#import nltk, string, os
+#from nltk.corpus import stopwords
 #from sklearn import naive_bayes
 
+connect('twitter_db',host='127.0.0.1')
 
-f = open('/home/ajaanbaahu/Documents/Projects/fast_classifier.pickle')
+
+f = open('/home/ubuntu/Projects/twitcoin/streaming_classify/fast_classifier.pickle')
 NV_classifier =cPickle.load(f)
 f.close()
-file="/home/ajaanbaahu/Documents/Projects/data.txt"
+file="/home/ubuntu/Projects/twitcoin/streaming_classify/data.txt"
 result_set={}
 for lines in open(file):
     tag=NV_classifier.classify(lines)
-    if tag not in result_set:	
-    	result_set[tag]=1
-    result_set[tag]+=1 	
-
-file= open("/home/ajaanbaahu/Documents/Projects/data_result.txt",'a')
-
-#file.write(result_set)
-
-for keys, values in result_set.iteritems():
-    file.write("{},{}".format(keys,values)+'\n')
-   # keys, values
+    Tweet(text=lines,classification=tag,date=str(datetime.datetime.now())).save()
